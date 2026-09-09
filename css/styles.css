@@ -131,7 +131,7 @@
             border: 1px solid var(--artifact-gold-muted);
             border-radius: 4px;
             position: sticky;
-            top: 10px;
+            top: var(--sticky-nav-top, 10px);
             z-index: 100;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
@@ -570,6 +570,7 @@
             .season-banner-card { height: 180px; }
             .full-day { display: none; }
             .short-day { display: inline; }
+            .nav-container { position: static; }
             .day-cell { height: 100px; padding: 4px; }
             .today-chip { display: none; }
             .event-badge { font-size: 0.68rem; padding: 2px 4px; }

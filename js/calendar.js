@@ -203,6 +203,7 @@
 
         renderTodayMarker();
         renderNotesBadges();
+        syncStickyOffsets();
     }
 
     function renderTodayMarker() {
@@ -220,15 +221,29 @@
         chip.textContent = t('today.label');
     }
 
+    function syncStickyOffsets() {
+        const toolbar = document.querySelector('.interactive-toolbar');
+        if (!toolbar) return;
+        const navTop = Math.round(toolbar.getBoundingClientRect().height) + 16;
+        document.documentElement.style.setProperty('--sticky-nav-top', navTop + 'px');
+    }
+
+    function stickyStackHeight() {
+        const toolbar = document.querySelector('.interactive-toolbar');
+        const nav = document.querySelector('.nav-container');
+        return (toolbar ? toolbar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0);
+    }
+
+    function scrollBelowStickyBars(el, behavior) {
+        const top = window.scrollY + el.getBoundingClientRect().top - stickyStackHeight() - 30;
+        window.scrollTo({ top: Math.max(top, 0), behavior: behavior || 'auto' });
+    }
+
     function scrollToToday() {
         const section = document.getElementById(months[currentMonthFocusIdx].id);
         if (!section) return;
         markNavButton(document.querySelector('.nav-btn[data-month-id="' + section.id + '"]'));
-        const target = section.querySelector('.day-cell.is-today') || section;
-        const toolbar = document.querySelector('.interactive-toolbar');
-        const gap = (toolbar ? toolbar.offsetHeight : 0) + 30;
-        const top = window.scrollY + target.getBoundingClientRect().top - gap;
-        window.scrollTo({ top: Math.max(top, 0) });
+        scrollBelowStickyBars(section.querySelector('.day-cell.is-today') || section);
     }
 
     function setViewMode(mode) {
@@ -265,7 +280,7 @@
         document.getElementById('focusMonthTitle').innerText = loc(months[currentMonthFocusIdx].name);
         const currentEl = document.getElementById(months[currentMonthFocusIdx].id);
         if (currentEl) {
-            currentEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            scrollBelowStickyBars(currentEl, 'smooth');
         }
     }
 
@@ -293,7 +308,7 @@
     function scrollToMonth(id, clicked) {
         const el = document.getElementById(id);
         if (!el) return;
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollBelowStickyBars(el, 'smooth');
         markNavButton(clicked);
     }
 
@@ -602,6 +617,7 @@
         setLanguage(readStoredLang());
         if (todayIdx !== -1) scrollToToday();
         setupGleanBridge();
+        window.addEventListener('resize', syncStickyOffsets);
     });
 
     window.setViewMode = setViewMode;
