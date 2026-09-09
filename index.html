@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Шкільний Календар 2026/2027 — 1-й Клас — Art Deco Grand Illustrated</title>
+    <title data-i18n="docTitle">Шкільний календар 2026/2027 — 1-й клас — Art Deco</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
     <!-- Hero Header -->
     <header class="hero-banner" data-glean-id="hero-banner">
-        <div class="hero-pretitle">✨ Офіційний шкільний календар 2026 / 2027 ✨</div>
-        <h1 class="hero-title">1-й Клас • Ліцей</h1>
+        <div class="hero-pretitle" data-i18n="hero.pretitle">✨ Офіційний шкільний календар 2026 / 2027 ✨</div>
+        <h1 class="hero-title" data-i18n="hero.title">1-й Клас • Ліцей</h1>
         <div class="hero-school">🏛️ LXXVIII Liceum Ogólnokształcące im. Marii Pawlikowskiej-Jasnorzewskiej w Warszawie</div>
         <div class="hero-meta">
-            <span>📅 I півріччя: 01.09.2026 – 29.01.2027</span>
-            <span>📅 II півріччя: 01.02.2027 – 25.06.2027</span>
-            <span>🔔 Завершення року: 25.06.2027</span>
+            <span data-i18n="hero.sem1">📅 I півріччя: 01.09.2026 – 29.01.2027</span>
+            <span data-i18n="hero.sem2">📅 II півріччя: 01.02.2027 – 25.06.2027</span>
+            <span data-i18n="hero.end">🔔 Завершення року: 25.06.2027</span>
         </div>
     </header>
 
@@ -27,64 +27,69 @@
         <div class="toolbar-top">
             <div class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="eventSearch" class="search-input" placeholder="Швидкий пошук (збори, канікули, виїзди, матура, оцінки)..." oninput="handleSearch(this.value)">
+                <input type="text" id="eventSearch" class="search-input" placeholder="Швидкий пошук (збори, канікули, виїзди, матура, оцінки)..." data-i18n-placeholder="search.placeholder" oninput="handleSearch(this.value)">
             </div>
             
             <div class="toolbar-actions">
                 <div class="mode-toggle-group">
-                    <button type="button" class="mode-btn active" id="modeAllBtn" onclick="setViewMode('all')">📜 Всі місяці</button>
-                    <button type="button" class="mode-btn" id="modeFocusBtn" onclick="setViewMode('focus')">🎯 Помісячно</button>
+                    <button type="button" class="mode-btn active" id="modeAllBtn" onclick="setViewMode('all')" data-i18n="mode.all">📜 Всі місяці</button>
+                    <button type="button" class="mode-btn" id="modeFocusBtn" onclick="setViewMode('focus')" data-i18n="mode.focus">🎯 Помісячно</button>
+                </div>
+                <div class="lang-switch" role="group" aria-label="Language">
+                    <button type="button" class="lang-btn active" data-lang="uk" onclick="setLanguage('uk')" title="Українська">UK</button>
+                    <button type="button" class="lang-btn" data-lang="pl" onclick="setLanguage('pl')" title="Polski">PL</button>
+                    <button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')" title="English">EN</button>
                 </div>
                 
-                <button type="button" class="action-btn btn-accent" onclick="downloadAllEventsICS()">📅 Завантажити .ICS (Google/Apple)</button>
-                <a class="action-btn" href="sandbox:/home/user/output/kalendarz_szkolny_2026_2027_klasa_1.pdf" target="_blank" download="kalendarz_szkolny_2026_2027_klasa_1.pdf">📄 PDF (13 стор.)</a>
-                <button type="button" class="action-btn" onclick="window.print()">🖨️ Друк</button>
+                <button type="button" class="action-btn btn-accent" onclick="downloadAllEventsICS()" data-i18n="action.ics">📅 Завантажити .ICS (Google/Apple)</button>
+                <a class="action-btn" href="sandbox:/home/user/output/kalendarz_szkolny_2026_2027_klasa_1.pdf" target="_blank" download="kalendarz_szkolny_2026_2027_klasa_1.pdf" data-i18n="action.pdf">📄 PDF (13 стор.)</a>
+                <button type="button" class="action-btn" onclick="window.print()" data-i18n="action.print">🖨️ Друк</button>
             </div>
         </div>
 
         <div class="filter-chips">
-            <span class="filter-label">Категорії подій:</span>
-            <button type="button" class="filter-chip active" data-cat="all" onclick="filterByCategory('all')">✨ Всі події</button>
-            <button type="button" class="filter-chip" data-cat="vacation" onclick="filterByCategory('vacation')">🏖️ Канікули та свята</button>
-            <button type="button" class="filter-chip" data-cat="meeting" onclick="filterByCategory('meeting')">👥 Батьківські збори</button>
-            <button type="button" class="filter-chip" data-cat="trip" onclick="filterByCategory('trip')">🎒 Виїзди та інтеграція</button>
-            <button type="button" class="filter-chip" data-cat="grade" onclick="filterByCategory('grade')">📝 Оцінки та педради</button>
+            <span class="filter-label" data-i18n="filter.label">Категорії подій:</span>
+            <button type="button" class="filter-chip active" data-cat="all" onclick="filterByCategory('all')" data-i18n="filter.all">✨ Всі події</button>
+            <button type="button" class="filter-chip" data-cat="vacation" onclick="filterByCategory('vacation')" data-i18n="filter.vacation">🏖️ Канікули та свята</button>
+            <button type="button" class="filter-chip" data-cat="meeting" onclick="filterByCategory('meeting')" data-i18n="filter.meeting">👥 Батьківські збори</button>
+            <button type="button" class="filter-chip" data-cat="trip" onclick="filterByCategory('trip')" data-i18n="filter.trip">🎒 Виїзди та інтеграція</button>
+            <button type="button" class="filter-chip" data-cat="grade" onclick="filterByCategory('grade')" data-i18n="filter.grade">📝 Оцінки та педради</button>
         </div>
     </div>
 
     <!-- Month Focus Bar (for Single-Month View) -->
     <div class="focus-nav-bar" id="focusNavBar">
-        <button type="button" class="focus-nav-btn" onclick="prevMonthFocus()">◀ Попередній місяць</button>
+        <button type="button" class="focus-nav-btn" onclick="prevMonthFocus()" data-i18n="focus.prev">◀ Попередній місяць</button>
         <span class="focus-current-title" id="focusMonthTitle">Вересень 2026</span>
-        <button type="button" class="focus-nav-btn" onclick="nextMonthFocus()">Наступний місяць ▶</button>
+        <button type="button" class="focus-nav-btn" onclick="nextMonthFocus()" data-i18n="focus.next">Наступний місяць ▶</button>
     </div>
 <nav class="nav-container" data-glean-id="nav-bar">
-        <button type="button" class="nav-btn active" onclick="showAllMonths(this)">🌟 Всі місяці</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('sep-2026', this)\">🍁 Вересень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('oct-2026', this)\">🍂 Жовтень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('nov-2026', this)\">🕯️ Листопад</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('dec-2026', this)\">🎄 Грудень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('jan-2027', this)\">❄️ Січень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('feb-2027', this)\">⛷️ Лютий</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('mar-2027', this)\">🌱 Березень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('apr-2027', this)\">🌸 Квітень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('may-2027', this)\">☀️ Травень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('jun-2027', this)\">🎉 Червень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('jul-2027', this)\">🏖️ Липень</button>
-        <button type="button" class="nav-btn" onclick=\"scrollToMonth('aug-2027', this)\">🌻 Серпень</button>
-        <button type="button" class="nav-btn btn-print" onclick="window.print()">🖨️ Друк / PDF</button>
+        <button type="button" class="nav-btn active" onclick="showAllMonths(this)" data-i18n="nav.all">🌟 Всі місяці</button>
+        <button type="button" class="nav-btn" data-month-id="sep-2026" onclick="scrollToMonth('sep-2026', this)">🍁 <span data-i18n="nav.sep"></span></button>
+        <button type="button" class="nav-btn" data-month-id="oct-2026" onclick="scrollToMonth('oct-2026', this)">🍂 <span data-i18n="nav.oct"></span></button>
+        <button type="button" class="nav-btn" data-month-id="nov-2026" onclick="scrollToMonth('nov-2026', this)">🕯️ <span data-i18n="nav.nov"></span></button>
+        <button type="button" class="nav-btn" data-month-id="dec-2026" onclick="scrollToMonth('dec-2026', this)">🎄 <span data-i18n="nav.dec"></span></button>
+        <button type="button" class="nav-btn" data-month-id="jan-2027" onclick="scrollToMonth('jan-2027', this)">❄️ <span data-i18n="nav.jan"></span></button>
+        <button type="button" class="nav-btn" data-month-id="feb-2027" onclick="scrollToMonth('feb-2027', this)">⛷️ <span data-i18n="nav.feb"></span></button>
+        <button type="button" class="nav-btn" data-month-id="mar-2027" onclick="scrollToMonth('mar-2027', this)">🌱 <span data-i18n="nav.mar"></span></button>
+        <button type="button" class="nav-btn" data-month-id="apr-2027" onclick="scrollToMonth('apr-2027', this)">🌸 <span data-i18n="nav.apr"></span></button>
+        <button type="button" class="nav-btn" data-month-id="may-2027" onclick="scrollToMonth('may-2027', this)">☀️ <span data-i18n="nav.may"></span></button>
+        <button type="button" class="nav-btn" data-month-id="jun-2027" onclick="scrollToMonth('jun-2027', this)">🎉 <span data-i18n="nav.jun"></span></button>
+        <button type="button" class="nav-btn" data-month-id="jul-2027" onclick="scrollToMonth('jul-2027', this)">🏖️ <span data-i18n="nav.jul"></span></button>
+        <button type="button" class="nav-btn" data-month-id="aug-2027" onclick="scrollToMonth('aug-2027', this)">🌻 <span data-i18n="nav.aug"></span></button>
+        <button type="button" class="nav-btn btn-print" onclick="window.print()" data-i18n="nav.print">🖨️ Друк / PDF</button>
     </nav>
 
     <!-- Monthly Calendar Pages -->
     <main data-glean-id="main-calendar-content">
         
     
-        <div class="season-banner-card" data-glean-id="season-img-autumn">
-            <img src="https://playtika-be.glean.com/api/v1/downloadchatfile/bdc9690b7831482b82b68330f32a8768" alt="Золота осінь в стилі Арт-деко" class="season-img" loading="lazy" />
+        <div class="season-banner-card" data-glean-id="season-img-autumn" data-season="autumn">
+            <img src="https://playtika-be.glean.com/api/v1/downloadchatfile/bdc9690b7831482b82b68330f32a8768" alt="Золота осінь в стилі Арт-деко" data-i18n-alt="season.autumn.title" class="season-img" loading="lazy" />
             <div class="season-overlay">
-                <span class="season-badge">❖ Сезонна ілюстрація Арт-деко ❖</span>
-                <h3 class="season-title">Золота осінь в стилі Арт-деко</h3>
-                <p class="season-caption">Сезон відкриття знань, подорожей та шкільної дружби</p>
+                <span class="season-badge" data-i18n="season.badge">❖ Сезонна ілюстрація Арт-деко ❖</span>
+                <h3 class="season-title" data-i18n="season.autumn.title">Золота осінь в стилі Арт-деко</h3>
+                <p class="season-caption" data-i18n="season.autumn.caption">Сезон відкриття знань, подорожей та шкільної дружби</p>
             </div>
         </div>
         
@@ -104,14 +109,14 @@
                 </div>
                 <h2 class="month-title">Вересень 2026</h2>
                 <div class="month-subtitle">Wrzesień 2026</div>
-                <div class="month-quote">« Початок великої подорожі • Rozpoczęcie roku szkolnego »</div>
+                <div class="month-quote" data-i18n="quote.sep-2026">« Початок великої подорожі • Rozpoczęcie roku szkolnego »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -425,30 +430,30 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-sep-2026-01.09">
+            <div class="agenda-item" data-event-id="ev-sep-1" data-glean-id="event-sep-2026-01.09">
                 <div class="agenda-date">01.09.2026 (Вт)</div>
                 <div class="agenda-type">Початок року 🔔</div>
                 <div class="agenda-desc">Урочистий початок занять 2026/2027 навчального року та старт I півріччя (Rozpoczęcie zajęć dydaktyczno-wychowawczych).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-sep-2026-08.09">
+            <div class="agenda-item" data-event-id="ev-sep-8-council" data-glean-id="event-sep-2026-08.09">
                 <div class="agenda-date">08.09.2026 (Вт)</div>
                 <div class="agenda-type">Педрада 📋</div>
                 <div class="agenda-desc">Організаційна педагогічна рада та представлення плану педагогічного нагляду.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-sep-2026-08.09">
+            <div class="agenda-item" data-event-id="ev-sep-8-meeting" data-glean-id="event-sep-2026-08.09">
                 <div class="agenda-date">08.09.2026 (Вт, 17:30)</div>
                 <div class="agenda-type">Батьківські збори 👥</div>
                 <div class="agenda-desc">Спеціальна зустріч батьків учнів 1-х класів з директором та класними керівниками (Spotkanie z dyrektorem (klasy I) i wychowawcami).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-sep-2026-21.09">
+            <div class="agenda-item" data-event-id="ev-sep-trip" data-glean-id="event-sep-2026-21.09">
                 <div class="agenda-date">21.09 – 25.09.2026</div>
                 <div class="agenda-type">Виїзний тиждень 🚌</div>
                 <div class="agenda-desc">Осінній виїзний (екскурсійний) тиждень ліцею (Tydzień wyjazdowy / wycieczkowy).</div>
@@ -476,14 +481,14 @@
                 </div>
                 <h2 class="month-title">Жовтень 2026</h2>
                 <div class="month-subtitle">Październik 2026</div>
-                <div class="month-quote">« Єдність та посвята першокласників • Integracja klas pierwszych »</div>
+                <div class="month-quote" data-i18n="quote.oct-2026">« Єдність та посвята першокласників • Integracja klas pierwszych »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -786,18 +791,18 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-oct-2026-01.10">
+            <div class="agenda-item" data-event-id="ev-oct-integ" data-glean-id="event-oct-2026-01.10">
                 <div class="agenda-date">01.10 – 02.10.2026 (Чт–Пт)</div>
                 <div class="agenda-type">Інтеграція 1-х кл. 🎒</div>
                 <div class="agenda-desc">Дні виїзної інтеграції для перших класів (Dni integracji wyjazdowej klas pierwszych) — згуртування та адаптація учнів.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-oct-2026-14.10">
+            <div class="agenda-item" data-event-id="ev-oct-14-den" data-glean-id="event-oct-2026-14.10">
                 <div class="agenda-date">14.10.2026 (Ср)</div>
                 <div class="agenda-type">Шкільне свято 💐</div>
                 <div class="agenda-desc">День національної освіти в Польщі (Dzień Edukacji Narodowej) — урочистий день у навчальних закладах.</div>
@@ -825,14 +830,14 @@
                 </div>
                 <h2 class="month-title">Листопад 2026</h2>
                 <div class="month-subtitle">Listopad 2026</div>
-                <div class="month-quote">« Час старанності та перших успіхів • Czas rzetelnej nauki »</div>
+                <div class="month-quote" data-i18n="quote.nov-2026">« Час старанності та перших успіхів • Czas rzetelnej nauki »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1126,24 +1131,24 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-nov-2026-01.11">
+            <div class="agenda-item" data-event-id="ev-nov-1-all-saints" data-glean-id="event-nov-2026-01.11">
                 <div class="agenda-date">01.11.2026 (Нд)</div>
                 <div class="agenda-type">Державне свято 🛑</div>
                 <div class="agenda-desc">День усіх святих (Wszystkich Świętych) — офіційний вихідний день.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-nov-2026-03.11">
+            <div class="agenda-item" data-event-id="ev-nov-3-meeting" data-glean-id="event-nov-2026-03.11">
                 <div class="agenda-date">03.11.2026 (Вт, 17:30)</div>
                 <div class="agenda-type">Батьківські збори 👥</div>
                 <div class="agenda-desc">Батьківські збори: інформація про поточну успішність та досягнення у навчанні (Informacja o postępach i wynikach w nauce).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-nov-2026-11.11">
+            <div class="agenda-item" data-event-id="ev-nov-11-independence" data-glean-id="event-nov-2026-11.11">
                 <div class="agenda-date">11.11.2026 (Ср)</div>
                 <div class="agenda-type">Державне свято 🇵🇱</div>
                 <div class="agenda-desc">Національне свято незалежності Польщі (Narodowe Święto Niepodległości) — офіційний вихідний день.</div>
@@ -1155,12 +1160,12 @@
     </section>
     
     
-        <div class="season-banner-card" data-glean-id="season-img-winter">
-            <img src="https://playtika-be.glean.com/api/v1/downloadchatfile/b5ab5ecbc8bd4d4c89ed09f747624080" alt="Зимова казка та різдвяні свята в стилі Арт-деко" class="season-img" loading="lazy" />
+        <div class="season-banner-card" data-glean-id="season-img-winter" data-season="winter">
+            <img src="https://playtika-be.glean.com/api/v1/downloadchatfile/b5ab5ecbc8bd4d4c89ed09f747624080" alt="Зимова казка та різдвяні свята в стилі Арт-деко" data-i18n-alt="season.winter.title" class="season-img" loading="lazy" />
             <div class="season-overlay">
-                <span class="season-badge">❖ Сезонна ілюстрація Арт-деко ❖</span>
-                <h3 class="season-title">Зимова казка та різдвяні свята в стилі Арт-деко</h3>
-                <p class="season-caption">Сезон святкового затишку, відпочинку та піврічних підсумків</p>
+                <span class="season-badge" data-i18n="season.badge">❖ Сезонна ілюстрація Арт-деко ❖</span>
+                <h3 class="season-title" data-i18n="season.winter.title">Зимова казка та різдвяні свята в стилі Арт-деко</h3>
+                <p class="season-caption" data-i18n="season.winter.caption">Сезон святкового затишку, відпочинку та піврічних підсумків</p>
             </div>
         </div>
         
@@ -1180,14 +1185,14 @@
                 </div>
                 <h2 class="month-title">Грудень 2026</h2>
                 <div class="month-subtitle">Grudzień 2026</div>
-                <div class="month-quote">« Різдвяне сяйво та підсумки • Zimowa przerwa świąteczna »</div>
+                <div class="month-quote" data-i18n="quote.dec-2026">« Різдвяне сяйво та підсумки • Zimowa przerwa świąteczna »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1530,30 +1535,30 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-dec-2026-До 15">
+            <div class="agenda-item" data-event-id="ev-dec-15-grade" data-glean-id="event-dec-2026-До 15">
                 <div class="agenda-date">До 15.12.2026 (Вт)</div>
                 <div class="agenda-type">Оцінювання ⚠️</div>
                 <div class="agenda-desc">Повідомлення учнів та батьків про загрозу отримання незадовільних оцінок та оцінки за поведінку за I півріччя.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-dec-2026-15.12">
+            <div class="agenda-item" data-event-id="ev-dec-15-meeting" data-glean-id="event-dec-2026-15.12">
                 <div class="agenda-date">15.12.2026 (Вт, 17:30)</div>
                 <div class="agenda-type">Батьківські збори 👥</div>
                 <div class="agenda-desc">Батьківські збори щодо загроз незадовільних оцінок.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-dec-2026-21.12">
+            <div class="agenda-item" data-event-id="ev-dec-21-off" data-glean-id="event-dec-2026-21.12">
                 <div class="agenda-date">21.12 – 22.12.2026</div>
                 <div class="agenda-type">Вільні дні 🛑</div>
                 <div class="agenda-desc">Додаткові вільні від навчальних занять дні (директорські вихідні перед канікулами).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-dec-2026-23.12">
+            <div class="agenda-item" data-event-id="ev-dec-23-vacation" data-glean-id="event-dec-2026-23.12">
                 <div class="agenda-date">23.12 – 31.12.2026</div>
                 <div class="agenda-type">Зимові канікули 🎄</div>
                 <div class="agenda-desc">Зимова святкова перерва (Zimowa przerwa świąteczna). 25–26 грудня — Різдво Христове.</div>
@@ -1581,14 +1586,14 @@
                 </div>
                 <h2 class="month-title">Січень 2027</h2>
                 <div class="month-subtitle">Styczeń 2027</div>
-                <div class="month-quote">« Фініш I півріччя • Klasyfikacja śródroczna »</div>
+                <div class="month-quote" data-i18n="quote.jan-2027">« Фініш I півріччя • Klasyfikacja śródroczna »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1911,48 +1916,48 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-jan-2027-01.01">
+            <div class="agenda-item" data-event-id="ev-jan-1-newyear" data-glean-id="event-jan-2027-01.01">
                 <div class="agenda-date">01.01.2027 (Пт)</div>
                 <div class="agenda-type">Державне свято 🎆</div>
                 <div class="agenda-desc">Новий рік (Nowy Rok) — офіційний вихідний день.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jan-2027-04.01">
+            <div class="agenda-item" data-event-id="ev-jan-4-off" data-glean-id="event-jan-2027-04.01">
                 <div class="agenda-date">04.01 – 05.01.2027</div>
                 <div class="agenda-type">Вільні дні 🛑</div>
                 <div class="agenda-desc">Додаткові вільні від занять дні (директорські вихідні).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jan-2027-06.01">
+            <div class="agenda-item" data-event-id="ev-jan-6-kings" data-glean-id="event-jan-2027-06.01">
                 <div class="agenda-date">06.01.2027 (Ср)</div>
                 <div class="agenda-type">Державне свято 👑</div>
                 <div class="agenda-desc">Свято Трьох Королів (Święto Trzech Króli) — державний вихідний.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jan-2027-До 22">
+            <div class="agenda-item" data-event-id="ev-jan-22-grade" data-glean-id="event-jan-2027-До 22">
                 <div class="agenda-date">До 22.01.2027 (Пт)</div>
                 <div class="agenda-type">Оцінювання 📝</div>
                 <div class="agenda-desc">Остаточне виставлення підсумкових оцінок за I півріччя (Wystawianie ocen za I półrocze).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jan-2027-26.01">
+            <div class="agenda-item" data-event-id="ev-jan-26-council" data-glean-id="event-jan-2027-26.01">
                 <div class="agenda-date">26.01.2027 (Вт)</div>
                 <div class="agenda-type">Педагогічна рада 📋</div>
                 <div class="agenda-desc">Засідання педагогічної ради щодо піврічної класифікації учнів 1–2 класів.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jan-2027-26.01">
+            <div class="agenda-item" data-event-id="ev-jan-26-meeting" data-glean-id="event-jan-2027-26.01">
                 <div class="agenda-date">26.01.2027 (Вт, 17:30)</div>
                 <div class="agenda-type">Батьківські збори 👥</div>
                 <div class="agenda-desc">Батьківські збори: оголошення результатів класифікації за I півріччя.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jan-2027-29.01">
+            <div class="agenda-item" data-event-id="ev-jan-29-endsem" data-glean-id="event-jan-2027-29.01">
                 <div class="agenda-date">29.01.2027 (Пт)</div>
                 <div class="agenda-type">Кінець семестру 🏁</div>
                 <div class="agenda-desc">Офіційне завершення занять I півріччя.</div>
@@ -1980,14 +1985,14 @@
                 </div>
                 <h2 class="month-title">Лютий 2027</h2>
                 <div class="month-subtitle">Luty 2027</div>
-                <div class="month-quote">« Зимовий відпочинок та новий старт • Ferie zimowe »</div>
+                <div class="month-quote" data-i18n="quote.feb-2027">« Зимовий відпочинок та новий старт • Ferie zimowe »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2319,30 +2324,30 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-feb-2027-01.02">
+            <div class="agenda-item" data-event-id="ev-feb-1-start2" data-glean-id="event-feb-2027-01.02">
                 <div class="agenda-date">01.02.2027 (Пн)</div>
                 <div class="agenda-type">Початок півріччя 🚀</div>
                 <div class="agenda-desc">Офіційний початок II півріччя 2026/2027 навчального року.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-feb-2027-01.02">
+            <div class="agenda-item" data-event-id="ev-feb-vacation" data-glean-id="event-feb-2027-01.02">
                 <div class="agenda-date">01.02 – 14.02.2027</div>
                 <div class="agenda-type">Зимові канікули ❄️</div>
                 <div class="agenda-desc">Зимові канікули (Ferie zimowe) для учнів шкіл Мазовецького воєводства.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-feb-2027-15.02">
+            <div class="agenda-item" data-event-id="ev-feb-15-resume" data-glean-id="event-feb-2027-15.02">
                 <div class="agenda-date">15.02.2027 (Пн)</div>
                 <div class="agenda-type">Навчання 📚</div>
                 <div class="agenda-desc">Відновлення аудиторних дидактично-виховних занять.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-feb-2027-16.02">
+            <div class="agenda-item" data-event-id="ev-feb-16-council" data-glean-id="event-feb-2027-16.02">
                 <div class="agenda-date">16.02.2027 (Вт)</div>
                 <div class="agenda-type">Педагогічна рада 📋</div>
                 <div class="agenda-desc">Педагогічна рада з підбиття підсумків I півріччя (Rada podsumowująca I półrocze).</div>
@@ -2354,12 +2359,12 @@
     </section>
     
     
-        <div class="season-banner-card" data-glean-id="season-img-spring">
-            <img src="https://playtika-be.glean.com/api/v1/downloadchatfile/ff54fae8047642a198325e1a6d02e3e2" alt="Весняне пробудження та нові горизонти в стилі Арт-деко" class="season-img" loading="lazy" />
+        <div class="season-banner-card" data-glean-id="season-img-spring" data-season="spring">
+            <img src="https://playtika-be.glean.com/api/v1/downloadchatfile/ff54fae8047642a198325e1a6d02e3e2" alt="Весняне пробудження та нові горизонти в стилі Арт-деко" data-i18n-alt="season.spring.title" class="season-img" loading="lazy" />
             <div class="season-overlay">
-                <span class="season-badge">❖ Сезонна ілюстрація Арт-деко ❖</span>
-                <h3 class="season-title">Весняне пробудження та нові горизонти в стилі Арт-деко</h3>
-                <p class="season-caption">Сезон натхнення, екскурсій та великодніх свят</p>
+                <span class="season-badge" data-i18n="season.badge">❖ Сезонна ілюстрація Арт-деко ❖</span>
+                <h3 class="season-title" data-i18n="season.spring.title">Весняне пробудження та нові горизонти в стилі Арт-деко</h3>
+                <p class="season-caption" data-i18n="season.spring.caption">Сезон натхнення, екскурсій та великодніх свят</p>
             </div>
         </div>
         
@@ -2379,14 +2384,14 @@
                 </div>
                 <h2 class="month-title">Березень 2027</h2>
                 <div class="month-subtitle">Marzec 2027</div>
-                <div class="month-quote">« Весняне оновлення та Великдень • Wiosenna przerwa świąteczna »</div>
+                <div class="month-quote" data-i18n="quote.mar-2027">« Весняне оновлення та Великдень • Wiosenna przerwa świąteczna »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2705,18 +2710,18 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-mar-2027-25.03">
+            <div class="agenda-item" data-event-id="ev-mar-easter" data-glean-id="event-mar-2027-25.03">
                 <div class="agenda-date">25.03 – 30.03.2027</div>
                 <div class="agenda-type">Весняні канікули 🐣</div>
                 <div class="agenda-desc">Весняна святкова перерва на Великдень (Wiosenna przerwa świąteczna). 28–29 березня — Великдень та Великодній понеділок.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-mar-2027-31.03">
+            <div class="agenda-item" data-event-id="ev-mar-31-resume" data-glean-id="event-mar-2027-31.03">
                 <div class="agenda-date">31.03.2027 (Ср)</div>
                 <div class="agenda-type">Навчання 📚</div>
                 <div class="agenda-desc">Відновлення аудиторних навчальних занять.</div>
@@ -2744,14 +2749,14 @@
                 </div>
                 <h2 class="month-title">Квітень 2027</h2>
                 <div class="month-subtitle">Kwiecień 2027</div>
-                <div class="month-quote">« Весняні подорожі та відкриті двері • Tydzień wyjazdowy »</div>
+                <div class="month-quote" data-i18n="quote.apr-2027">« Весняні подорожі та відкриті двері • Tydzień wyjazdowy »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -3061,24 +3066,24 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-apr-2027-06.04">
+            <div class="agenda-item" data-event-id="ev-apr-6-meeting" data-glean-id="event-apr-2027-06.04">
                 <div class="agenda-date">06.04.2027 (Вт, 17:30)</div>
                 <div class="agenda-type">Батьківські збори 👥</div>
                 <div class="agenda-desc">Батьківські збори: інформація про успішність та результати навчання учнів 1, 2 і 3 класів.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-apr-2027-08.04">
+            <div class="agenda-item" data-event-id="ev-apr-8-openday" data-glean-id="event-apr-2027-08.04">
                 <div class="agenda-date">08.04.2027 (Чт)</div>
                 <div class="agenda-type">Захід ліцею 🏫</div>
                 <div class="agenda-desc">День відкритих дверей у Ліцеї (Dzień otwarty w Liceum).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-apr-2027-26.04">
+            <div class="agenda-item" data-event-id="ev-apr-trip" data-glean-id="event-apr-2027-26.04">
                 <div class="agenda-date">26.04 – 30.04.2027</div>
                 <div class="agenda-type">Виїзний тиждень 🚌</div>
                 <div class="agenda-desc">Весняний виїзний (екскурсійний) тиждень ліцею (Tydzień wyjazdowy / wycieczkowy). *(Події щодо 4-х класів відфільтровано)*.</div>
@@ -3106,14 +3111,14 @@
                 </div>
                 <h2 class="month-title">Травень 2027</h2>
                 <div class="month-subtitle">Maj 2027</div>
-                <div class="month-quote">« Травневі свята та вільні дні матури • Majowe święta »</div>
+                <div class="month-quote" data-i18n="quote.may-2027">« Травневі свята та вільні дні матури • Majowe święta »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -3436,36 +3441,36 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-may-2027-01.05">
+            <div class="agenda-item" data-event-id="ev-may-1-labor" data-glean-id="event-may-2027-01.05">
                 <div class="agenda-date">01.05.2027 (Сб)</div>
                 <div class="agenda-type">Державне свято 🛑</div>
                 <div class="agenda-desc">Свято праці (Święto Pracy).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-may-2027-03.05">
+            <div class="agenda-item" data-event-id="ev-may-3-const" data-glean-id="event-may-2027-03.05">
                 <div class="agenda-date">03.05.2027 (Пн)</div>
                 <div class="agenda-type">Державне свято 🇵🇱</div>
                 <div class="agenda-desc">Свято Конституції 3 Травня (Święto Konstytucji 3 Maja) — офіційний вихідний.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-may-2027-04.05">
+            <div class="agenda-item" data-event-id="ev-may-matura-off" data-glean-id="event-may-2027-04.05">
                 <div class="agenda-date">04.05 – 07.05.2027 (Вт–Пт)</div>
                 <div class="agenda-type">Вільні дні (Матура) 🛑</div>
                 <div class="agenda-desc">Додаткові вільні від уроків дні у зв'язку з проведенням випускних іспитів (матури) у 4-х класах. Учні 1-х класів вільні від уроків.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-may-2027-27.05">
+            <div class="agenda-item" data-event-id="ev-may-27-corpus" data-glean-id="event-may-2027-27.05">
                 <div class="agenda-date">27.05.2027 (Чт)</div>
                 <div class="agenda-type">Державне свято 🌿</div>
                 <div class="agenda-desc">Свято Тіла і Крові Христових (Boże Ciało) — офіційний вихідний день.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-may-2027-28.05">
+            <div class="agenda-item" data-event-id="ev-may-28-longwknd" data-glean-id="event-may-2027-28.05">
                 <div class="agenda-date">28.05.2027 (Пт)</div>
                 <div class="agenda-type">Вільний день ☀️</div>
                 <div class="agenda-desc">Додатковий вільний від занять день (директорський вихідний — довгі вихідні).</div>
@@ -3477,12 +3482,12 @@
     </section>
     
     
-        <div class="season-banner-card" data-glean-id="season-img-summer">
-            <img src="https://playtika-be.glean.com/api/v1/downloadchatfile/7c53f2fee6d144468001787133fdf626" alt="Розкішне літо та тріумфальні канікули в стилі Арт-деко" class="season-img" loading="lazy" />
+        <div class="season-banner-card" data-glean-id="season-img-summer" data-season="summer">
+            <img src="https://playtika-be.glean.com/api/v1/downloadchatfile/7c53f2fee6d144468001787133fdf626" alt="Розкішне літо та тріумфальні канікули в стилі Арт-деко" data-i18n-alt="season.summer.title" class="season-img" loading="lazy" />
             <div class="season-overlay">
-                <span class="season-badge">❖ Сезонна ілюстрація Арт-деко ❖</span>
-                <h3 class="season-title">Розкішне літо та тріумфальні канікули в стилі Арт-деко</h3>
-                <p class="season-caption">Сезон заслуженого відпочинку, сонця та подорожей</p>
+                <span class="season-badge" data-i18n="season.badge">❖ Сезонна ілюстрація Арт-деко ❖</span>
+                <h3 class="season-title" data-i18n="season.summer.title">Розкішне літо та тріумфальні канікули в стилі Арт-деко</h3>
+                <p class="season-caption" data-i18n="season.summer.caption">Сезон заслуженого відпочинку, сонця та подорожей</p>
             </div>
         </div>
         
@@ -3502,14 +3507,14 @@
                 </div>
                 <h2 class="month-title">Червень 2027</h2>
                 <div class="month-subtitle">Czerwiec 2027</div>
-                <div class="month-quote">« Тріумф та завершення навчального року • Zakończenie roku »</div>
+                <div class="month-quote" data-i18n="quote.jun-2027">« Тріумф та завершення навчального року • Zakończenie roku »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -3835,48 +3840,48 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-jun-2027-До 01">
+            <div class="agenda-item" data-event-id="ev-jun-1-grade" data-glean-id="event-jun-2027-До 01">
                 <div class="agenda-date">До 01.06.2027 (Вт)</div>
                 <div class="agenda-type">Оцінювання ⚠️</div>
                 <div class="agenda-desc">Інформування учнів та батьків про загрозу незадовільних оцінок, поведінки та прогнозовані річні оцінки для 1, 2 і 3 класів у електронному щоденнику.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jun-2027-01.06">
+            <div class="agenda-item" data-event-id="ev-jun-1-meeting" data-glean-id="event-jun-2027-01.06">
                 <div class="agenda-date">01.06.2027 (Вт, 17:30)</div>
                 <div class="agenda-type">Батьківські збори 👥</div>
                 <div class="agenda-desc">Батьківські збори: обговорення загроз незадовільних оцінок та прогнозованих річних балів.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jun-2027-До 18">
+            <div class="agenda-item" data-event-id="ev-jun-18-finalgrade" data-glean-id="event-jun-2027-До 18">
                 <div class="agenda-date">До 18.06.2027 (Пт)</div>
                 <div class="agenda-type">Оцінювання 📝</div>
                 <div class="agenda-desc">Остаточне виставлення підсумкових річних оцінок у 1, 2 і 3 класах (Wystawienie ocen w klasyfikacji rocznej).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jun-2027-22.06">
+            <div class="agenda-item" data-event-id="ev-jun-22-council" data-glean-id="event-jun-2027-22.06">
                 <div class="agenda-date">22.06.2027 (Вт)</div>
                 <div class="agenda-type">Педагогічна рада 📋</div>
                 <div class="agenda-desc">Засідання педагогічної ради щодо річної класифікації учнів 1-х класів.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jun-2027-24.06">
+            <div class="agenda-item" data-event-id="ev-jun-24-council" data-glean-id="event-jun-2027-24.06">
                 <div class="agenda-date">24.06.2027 (Чт)</div>
                 <div class="agenda-type">Педагогічна рада 🏛️</div>
                 <div class="agenda-desc">Підсумкова педагогічна рада ліцею.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jun-2027-25.06">
+            <div class="agenda-item" data-event-id="ev-jun-25-triumph" data-glean-id="event-jun-2027-25.06">
                 <div class="agenda-date">25.06.2027 (Пт)</div>
                 <div class="agenda-type">Свято школи 🎉</div>
                 <div class="agenda-desc">Урочисте завершення 2026/2027 навчального року для 1, 2 і 3 класів (Uroczystość zakończenia roku szkolnego).</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-jun-2027-26.06">
+            <div class="agenda-item" data-event-id="ev-jun-26-vacation" data-glean-id="event-jun-2027-26.06">
                 <div class="agenda-date">26.06 – 31.08.2027</div>
                 <div class="agenda-type">Літні канікули 🏖️</div>
                 <div class="agenda-desc">Початок літніх канікул (Ferie letnie).</div>
@@ -3904,14 +3909,14 @@
                 </div>
                 <h2 class="month-title">Липень 2027</h2>
                 <div class="month-subtitle">Lipiec 2027</div>
-                <div class="month-quote">« Літній відпочинок та релаксація • Wakacje letnie »</div>
+                <div class="month-quote" data-i18n="quote.jul-2027">« Літній відпочинок та релаксація • Wakacje letnie »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -4206,12 +4211,12 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-jul-2027-01.07">
+            <div class="agenda-item" data-event-id="ev-jun-26-vacation" data-glean-id="event-jul-2027-01.07">
                 <div class="agenda-date">01.07 – 31.07.2027</div>
                 <div class="agenda-type">Літні канікули 🏖️</div>
                 <div class="agenda-desc">Літні канікули (Ferie letnie). Навчальні заняття не проводяться.</div>
@@ -4239,14 +4244,14 @@
                 </div>
                 <h2 class="month-title">Серпень 2027</h2>
                 <div class="month-subtitle">Sierpień 2027</div>
-                <div class="month-quote">« Золотий серпень перед новим стартом • Przed nowym rokiem »</div>
+                <div class="month-quote" data-i18n="quote.aug-2027">« Золотий серпень перед новим стартом • Przed nowym rokiem »</div>
             </header>
             
             <div class="calendar-wrapper">
                 <table class="art-deco-calendar">
                     <thead>
                         <tr>
-                            <th><span class="full-day">Понеділок</span><span class="short-day">Пн</span></th><th><span class="full-day">Вівторок</span><span class="short-day">Вт</span></th><th><span class="full-day">Середа</span><span class="short-day">Ср</span></th><th><span class="full-day">Четвер</span><span class="short-day">Чт</span></th><th><span class="full-day">П'ятниця</span><span class="short-day">Пт</span></th><th><span class="full-day">Субота</span><span class="short-day">Сб</span></th><th><span class="full-day">Неділя</span><span class="short-day">Нд</span></th>
+                            <th><span class="full-day" data-i18n="wd.full.0"></span><span class="short-day" data-i18n="wd.short.0"></span></th><th><span class="full-day" data-i18n="wd.full.1"></span><span class="short-day" data-i18n="wd.short.1"></span></th><th><span class="full-day" data-i18n="wd.full.2"></span><span class="short-day" data-i18n="wd.short.2"></span></th><th><span class="full-day" data-i18n="wd.full.3"></span><span class="short-day" data-i18n="wd.short.3"></span></th><th><span class="full-day" data-i18n="wd.full.4"></span><span class="short-day" data-i18n="wd.short.4"></span></th><th><span class="full-day" data-i18n="wd.full.5"></span><span class="short-day" data-i18n="wd.short.5"></span></th><th><span class="full-day" data-i18n="wd.full.6"></span><span class="short-day" data-i18n="wd.short.6"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -4545,18 +4550,18 @@
             <div class="agenda-section">
                 <div class="agenda-header">
                     <span class="agenda-ornament">❖</span>
-                    <h3>Розклад подій та зауваги місяця</h3>
+                    <h3 data-i18n="agenda.header">Розклад подій та зауваги місяця</h3>
                     <span class="agenda-ornament">❖</span>
                 </div>
                 <div class="agenda-grid">
                     
-            <div class="agenda-item" data-glean-id="event-aug-2027-01.08">
+            <div class="agenda-item" data-event-id="ev-jun-26-vacation" data-glean-id="event-aug-2027-01.08">
                 <div class="agenda-date">01.08 – 31.08.2027</div>
                 <div class="agenda-type">Літні канікули 🏖️</div>
                 <div class="agenda-desc">Літні канікули тривають до 31 серпня 2027 року.</div>
             </div>
         
-            <div class="agenda-item" data-glean-id="event-aug-2027-15.08">
+            <div class="agenda-item" data-event-id="ev-aug-15-army" data-glean-id="event-aug-2027-15.08">
                 <div class="agenda-date">15.08.2027 (Нд)</div>
                 <div class="agenda-type">Державне свято 🇵🇱</div>
                 <div class="agenda-desc">Свято Війська Польського та Успіння Пресвятої Богородиці (Wniebowzięcie NMP).</div>
@@ -4570,7 +4575,7 @@
     </main>
 
     <footer class="footer" data-glean-id="footer">
-        ❖ LXXVIII Liceum Ogólnokształcące w Warszawie • 2026/2027 • Всі події виключно для 1-х класів або загальношкільні ❖
+        <span data-i18n="footer">❖ LXXVIII Liceum Ogólnokształcące w Warszawie • 2026/2027 • Всі події виключно для 1-х класів або загальношкільні ❖</span>
     </footer>
 
     <!-- Art Deco Interactive Event & Day Modal -->
@@ -4578,10 +4583,10 @@
         <div class="deco-modal" data-glean-id="event-modal-window">
             <div class="modal-header">
                 <div>
-                    <div class="modal-kicker">Шкільний календар 2026/2027 • 1-й клас</div>
-                    <div class="modal-date-title" id="modalDateTitle">Дата події</div>
+                    <div class="modal-kicker" data-i18n="modal.kicker">Шкільний календар 2026/2027 • 1-й клас</div>
+                    <div class="modal-date-title" id="modalDateTitle" data-i18n="modal.dateFallback">Дата події</div>
                 </div>
-                <button type="button" class="modal-close-btn" onclick="closeEventModal()">✕ Закрити</button>
+                <button type="button" class="modal-close-btn" onclick="closeEventModal()" data-i18n="modal.close">✕ Закрити</button>
             </div>
             
             <div id="modalEventsContainer">
@@ -4590,11 +4595,11 @@
 
             <!-- Notes Section -->
             <div class="modal-notes-section">
-                <div class="modal-notes-title">📝 Особиста замітка батьків для цього дня:</div>
-                <textarea id="modalNoteInput" class="modal-notes-textarea" placeholder="Наприклад: здати підручники, купити квитки, записатися на консультацію..."></textarea>
+                <div class="modal-notes-title" data-i18n="modal.notesTitle">📝 Особиста замітка батьків для цього дня:</div>
+                <textarea id="modalNoteInput" class="modal-notes-textarea" placeholder="Наприклад: здати підручники, купити квитки, записатися на консультацію..." data-i18n-placeholder="modal.notesPlaceholder"></textarea>
                 <div class="modal-notes-actions">
-                    <button type="button" class="modal-btn modal-btn-save" onclick="saveCurrentDayNote()">💾 Зберегти замітку</button>
-                    <span id="noteSavedStatus" class="note-saved-status">✓ Збережено в браузері!</span>
+                    <button type="button" class="modal-btn modal-btn-save" onclick="saveCurrentDayNote()" data-i18n="modal.saveNote">💾 Зберегти замітку</button>
+                    <span id="noteSavedStatus" class="note-saved-status" data-i18n="modal.saved">✓ Збережено в браузері!</span>
                 </div>
             </div>
         </div>
@@ -4603,6 +4608,7 @@
     <div class="toast-msg" id="toastMsg">Повідомлення</div>
 
     <script src="js/calendar-data.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/calendar.js"></script>
 </body>
 </html>

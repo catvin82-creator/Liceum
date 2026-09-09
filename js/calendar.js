@@ -1,14 +1,35 @@
-/* School calendar behaviour — reads CALENDAR_DATA, does not own styles or event records. */
+/* School calendar behaviour — reads CALENDAR_DATA and I18N. */
 
 (function () {
     const data = window.CALENDAR_DATA;
     const events = data.events;
     const months = data.months;
     const school = data.school;
+    const LANGS = ['uk', 'pl', 'en'];
+    const LANG_KEY = school.langStorageKey || 'lyceum_78_lang';
 
+    let currentLang = 'uk';
     let currentMonthFocusIdx = 0;
     let activeCategoryFilter = 'all';
     let currentActiveDayKey = null;
+    let cellsBound = false;
+
+    function t(key) {
+        const pack = window.I18N[currentLang] || window.I18N.uk;
+        return pack[key] || window.I18N.uk[key] || key;
+    }
+
+    function loc(field) {
+        if (field == null) return '';
+        if (typeof field === 'string') return field;
+        return field[currentLang] || field.uk || field.pl || field.en || '';
+    }
+
+    function eventById(id) {
+        return events.find(function (e) {
+            return e.id === id;
+        });
+    }
 
     function eventsOnDate(dateStr) {
         return events.filter(function (ev) {
@@ -17,6 +38,136 @@
             }
             return ev.date === dateStr;
         });
+    }
+
+    function badgeText(ev, dateStr) {
+        if (ev.badgeByDate && ev.badgeByDate[dateStr]) {
+            return loc(ev.badgeByDate[dateStr]);
+        }
+        return loc(ev.badgeShort) || loc(ev.title);
+    }
+
+    function formatDayHeading(dateStr) {
+        const parts = dateStr.split('-');
+        const month = months.find(function (m) {
+            return m.year === parseInt(parts[0], 10) && m.month === parseInt(parts[1], 10);
+        });
+        const dayNum = parseInt(parts[2], 10);
+        return dayNum + ' ' + loc(month ? month.nameGenitive : dateStr);
+    }
+
+    function searchBlob(ev) {
+        return [
+            loc(ev.title),
+            ev.officialTitle,
+            loc(ev.description),
+            loc(ev.grade1Note),
+            loc(ev.categoryName),
+            loc(ev.badgeShort)
+        ].join(' ').toLowerCase();
+    }
+
+    function readStoredLang() {
+        try {
+            const saved = localStorage.getItem(LANG_KEY);
+            if (LANGS.indexOf(saved) !== -1) return saved;
+        } catch (e) {}
+        return 'uk';
+    }
+
+    function setLanguage(lang) {
+        if (LANGS.indexOf(lang) === -1) lang = 'uk';
+        currentLang = lang;
+        try {
+            localStorage.setItem(LANG_KEY, lang);
+        } catch (e) {}
+        applyLanguage();
+        const search = document.getElementById('eventSearch');
+        if (search && search.value) handleSearch(search.value);
+        if (activeCategoryFilter !== 'all') filterByCategory(activeCategoryFilter);
+        const modal = document.getElementById('eventModal');
+        if (modal && modal.classList.contains('active') && currentActiveDayKey) {
+            openDayModal(currentActiveDayKey, formatDayHeading(currentActiveDayKey));
+        }
+    }
+
+    function applyLanguage() {
+        document.documentElement.lang = currentLang;
+        document.title = t('docTitle');
+
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+            el.textContent = t(el.getAttribute('data-i18n'));
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+            el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+        });
+        document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+            el.setAttribute('alt', t(el.getAttribute('data-i18n-alt')));
+        });
+
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+            const lang = btn.getAttribute('data-lang');
+            btn.classList.toggle('active', lang === currentLang);
+            btn.title = t('lang.' + lang);
+        });
+
+        months.forEach(function (m) {
+            const section = document.getElementById(m.id);
+            if (!section) return;
+            const title = section.querySelector('.month-title');
+            const sub = section.querySelector('.month-subtitle');
+            if (title) title.textContent = loc(m.name);
+            if (sub) sub.textContent = currentLang === 'pl' ? m.name.uk : m.name.pl;
+        });
+
+        document.querySelectorAll('.agenda-item[data-event-id]').forEach(function (item) {
+            const ev = eventById(item.getAttribute('data-event-id'));
+            if (!ev) return;
+            const dateEl = item.querySelector('.agenda-date');
+            const typeEl = item.querySelector('.agenda-type');
+            const descEl = item.querySelector('.agenda-desc');
+            if (dateEl) dateEl.textContent = loc(ev.dateFormatted);
+            if (typeEl) typeEl.textContent = loc(ev.categoryName);
+            if (descEl) descEl.textContent = loc(ev.description);
+        });
+
+        months.forEach(function (m) {
+            const section = document.getElementById(m.id);
+            if (!section) return;
+            section.querySelectorAll('.day-cell:not(.empty)').forEach(function (cell) {
+                const dateStr = cell.getAttribute('data-day-key');
+                if (!dateStr) return;
+                const dayEvents = eventsOnDate(dateStr);
+                const badges = cell.querySelectorAll('.event-badge');
+                const used = {};
+                badges.forEach(function (badge) {
+                    const cls = Array.prototype.find.call(badge.classList, function (c) {
+                        return c.indexOf('badge-') === 0;
+                    });
+                    let ev = dayEvents.find(function (e) {
+                        return !used[e.id] && 'badge-' + e.category === cls;
+                    });
+                    if (!ev) {
+                        ev = dayEvents.find(function (e) {
+                            return !used[e.id];
+                        });
+                    }
+                    if (!ev) return;
+                    used[ev.id] = true;
+                    const titleEl = badge.querySelector('.badge-title');
+                    const text = badgeText(ev, dateStr);
+                    if (titleEl) titleEl.textContent = text;
+                    badge.title = loc(ev.title);
+                });
+                cell.setAttribute('data-search', dayEvents.map(searchBlob).join(' '));
+                cell.title = t('cell.openTitle') + ' ' + formatDayHeading(dateStr);
+            });
+        });
+
+        const focusTitle = document.getElementById('focusMonthTitle');
+        if (focusTitle) focusTitle.textContent = loc(months[currentMonthFocusIdx].name);
+
+        renderNotesBadges();
     }
 
     function setViewMode(mode) {
@@ -50,7 +201,7 @@
                 el.style.display = idx === currentMonthFocusIdx ? 'block' : 'none';
             }
         });
-        document.getElementById('focusMonthTitle').innerText = months[currentMonthFocusIdx].name;
+        document.getElementById('focusMonthTitle').innerText = loc(months[currentMonthFocusIdx].name);
         const currentEl = document.getElementById(months[currentMonthFocusIdx].id);
         if (currentEl) {
             currentEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -100,7 +251,8 @@
             }
             const text = cell.innerText.toLowerCase();
             const title = (cell.getAttribute('title') || '').toLowerCase();
-            if (text.includes(query) || title.includes(query)) {
+            const extra = (cell.getAttribute('data-search') || '').toLowerCase();
+            if (text.includes(query) || title.includes(query) || extra.includes(query)) {
                 cell.classList.remove('dimmed');
                 cell.classList.add('highlighted');
             } else {
@@ -114,8 +266,9 @@
                 item.style.display = 'block';
                 return;
             }
-            const text = item.innerText.toLowerCase();
-            item.style.display = text.includes(query) ? 'block' : 'none';
+            const ev = eventById(item.getAttribute('data-event-id'));
+            const blob = (item.innerText + ' ' + (ev ? searchBlob(ev) : '')).toLowerCase();
+            item.style.display = blob.includes(query) ? 'block' : 'none';
         });
     }
 
@@ -171,32 +324,36 @@
         const statusMsg = document.getElementById('noteSavedStatus');
         statusMsg.style.display = 'none';
 
-        titleEl.innerText = formattedDate || dateStr;
+        titleEl.innerText = formattedDate || formatDayHeading(dateStr);
 
         const matching = eventsOnDate(dateStr);
 
         if (matching.length === 0) {
             container.innerHTML =
                 '<div class="modal-event-card">' +
-                '<div class="modal-event-title">📚 Навчальний день за розкладом</div>' +
-                '<div class="modal-event-desc">Цього дня в ліцеї проходять регулярні уроки згідно з розкладом 1-го класу. Спеціальних загальношкільних чи виїзних заходів не заплановано.</div>' +
+                '<div class="modal-event-title">' + t('modal.emptyTitle') + '</div>' +
+                '<div class="modal-event-desc">' + t('modal.emptyDesc') + '</div>' +
                 '</div>';
         } else {
             container.innerHTML = matching.map(function (ev) {
                 const gcalUrl = createGoogleCalendarUrl(ev);
+                const officialRow =
+                    currentLang === 'pl'
+                        ? ''
+                        : '<div class="modal-event-pl">' + t('modal.official') + ' ' + ev.officialTitle + '</div>';
                 return (
                     '<div class="modal-event-card" data-glean-id="modal-' + ev.id + '">' +
-                    '<div class="modal-event-title">' + ev.title + '</div>' +
-                    '<div class="modal-event-pl">Офіційно (PL): ' + ev.titlePl + '</div>' +
+                    '<div class="modal-event-title">' + loc(ev.title) + '</div>' +
+                    officialRow +
                     '<div class="modal-event-desc">' +
-                    '<div><b>Час / тривалість:</b> ' + ev.time + '</div>' +
-                    '<div><b>Опис:</b> ' + ev.description + '</div>' +
-                    '<div><b>Локація:</b> ' + ev.location + '</div>' +
+                    '<div><b>' + t('modal.time') + '</b> ' + loc(ev.time) + '</div>' +
+                    '<div><b>' + t('modal.desc') + '</b> ' + loc(ev.description) + '</div>' +
+                    '<div><b>' + t('modal.location') + '</b> ' + loc(ev.location) + '</div>' +
                     '</div>' +
-                    '<div class="modal-grade1-tip">💡 <b>Для 1-х класів:</b> ' + ev.grade1Note + '</div>' +
+                    '<div class="modal-grade1-tip">💡 <b>' + t('modal.grade1') + '</b> ' + loc(ev.grade1Note) + '</div>' +
                     '<div class="modal-actions">' +
-                    '<a class="modal-btn" href="' + gcalUrl + '" target="_blank">📅 Додати до Google Calendar</a>' +
-                    '<button type="button" class="modal-btn" onclick="downloadSingleEventICS(\'' + ev.id + '\')">📥 Завантажити .ICS</button>' +
+                    '<a class="modal-btn" href="' + gcalUrl + '" target="_blank">' + t('modal.gcal') + '</a>' +
+                    '<button type="button" class="modal-btn" onclick="downloadSingleEventICS(\'' + ev.id + '\')">' + t('modal.ics') + '</button>' +
                     '</div></div>'
                 );
             }).join('');
@@ -237,7 +394,7 @@
         } catch (e) {}
 
         document.getElementById('noteSavedStatus').style.display = 'inline';
-        showToast('Замітку успішно збережено!');
+        showToast(t('toast.noteSaved'));
         renderNotesBadges();
     }
 
@@ -254,11 +411,9 @@
                     badge = document.createElement('span');
                     badge.className = 'day-note-badge';
                     badge.innerText = '⭐';
-                    badge.title = 'Особиста замітка: ' + notes[dayId];
                     header.appendChild(badge);
-                } else {
-                    badge.title = 'Особиста замітка: ' + notes[dayId];
                 }
+                badge.title = t('note.badgeTitle') + ' ' + notes[dayId];
             } else if (badge) {
                 badge.remove();
             }
@@ -266,11 +421,11 @@
     }
 
     function showToast(msg) {
-        const t = document.getElementById('toastMsg');
-        t.innerText = msg;
-        t.style.display = 'block';
+        const toastEl = document.getElementById('toastMsg');
+        toastEl.innerText = msg;
+        toastEl.style.display = 'block';
         setTimeout(function () {
-            t.style.display = 'none';
+            toastEl.style.display = 'none';
         }, 3000);
     }
 
@@ -282,30 +437,30 @@
             d.setDate(d.getDate() + 1);
             endD = d.toISOString().slice(0, 10).replace(/-/g, '');
         }
-        const text = encodeURIComponent(ev.title);
-        const details = encodeURIComponent(ev.description + '\n\n1-й клас ліцею.\nОфіційна назва: ' + ev.titlePl);
-        const loc = encodeURIComponent(ev.location);
-        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + text + '&dates=' + startD + '/' + endD + '&details=' + details + '&location=' + loc;
+        const text = encodeURIComponent(loc(ev.title));
+        const details = encodeURIComponent(
+            loc(ev.description) + '\n\n' + loc(ev.grade1Note) + '\n' + t('modal.official') + ' ' + ev.officialTitle
+        );
+        const location = encodeURIComponent(loc(ev.location));
+        return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + text + '&dates=' + startD + '/' + endD + '&details=' + details + '&location=' + location;
     }
 
     function downloadSingleEventICS(evId) {
-        const ev = events.find(function (e) {
-            return e.id === evId;
-        });
+        const ev = eventById(evId);
         if (!ev) return;
         downloadFile(generateICS([ev]), ev.id + '.ics', 'text/calendar');
     }
 
     function downloadAllEventsICS() {
         downloadFile(generateICS(events), 'kalendarz_szkolny_2026_2027_1_klasa.ics', 'text/calendar');
-        showToast('Календар .ICS завантажено! Тепер відкрийте його для імпорту в Google/Apple Calendar.');
+        showToast(t('toast.ics'));
     }
 
     function generateICS(eventList) {
         const lines = [
             'BEGIN:VCALENDAR',
             'VERSION:2.0',
-            'PRODID:-//LXXVIII LO Warszawa//Klasa 1 Kalendarz//UK',
+            'PRODID:-//LXXVIII LO Warszawa//Klasa 1 Kalendarz//' + currentLang.toUpperCase(),
             'CALSCALE:GREGORIAN',
             'METHOD:PUBLISH',
             'X-WR-CALNAME:' + school.icsCalendarName,
@@ -323,9 +478,9 @@
             lines.push('DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z');
             lines.push('DTSTART;VALUE=DATE:' + sDate);
             lines.push('DTEND;VALUE=DATE:' + eDateExclusive);
-            lines.push('SUMMARY:' + ev.title.replace(/[,;]/g, ' '));
-            lines.push('DESCRIPTION:' + (ev.description + ' ' + ev.grade1Note).replace(/\n/g, ' '));
-            lines.push('LOCATION:' + ev.location);
+            lines.push('SUMMARY:' + loc(ev.title).replace(/[,;]/g, ' '));
+            lines.push('DESCRIPTION:' + (loc(ev.description) + ' ' + loc(ev.grade1Note)).replace(/\n/g, ' '));
+            lines.push('LOCATION:' + loc(ev.location));
             lines.push('END:VEVENT');
         });
 
@@ -346,6 +501,8 @@
     }
 
     function bindDayCells() {
+        if (cellsBound) return;
+        cellsBound = true;
         months.forEach(function (m) {
             const section = document.getElementById(m.id);
             if (!section) return;
@@ -357,11 +514,9 @@
 
                 const dateStr =
                     m.year + '-' + String(m.month).padStart(2, '0') + '-' + String(dNum).padStart(2, '0');
-                const formatted = dNum + ' ' + m.nameGenitive;
                 cell.setAttribute('data-day-key', dateStr);
-                cell.title = 'Натисніть, щоб відкрити деталі та замітки на ' + formatted;
                 cell.addEventListener('click', function () {
-                    openDayModal(dateStr, formatted);
+                    openDayModal(dateStr, formatDayHeading(dateStr));
                 });
             });
         });
@@ -381,11 +536,12 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         bindDayCells();
-        renderNotesBadges();
+        setLanguage(readStoredLang());
         setupGleanBridge();
     });
 
     window.setViewMode = setViewMode;
+    window.setLanguage = setLanguage;
     window.prevMonthFocus = prevMonthFocus;
     window.nextMonthFocus = nextMonthFocus;
     window.scrollToMonth = scrollToMonth;

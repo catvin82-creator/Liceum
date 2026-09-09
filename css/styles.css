@@ -681,6 +681,37 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .lang-switch {
+            display: inline-flex;
+            border: 1px solid var(--artifact-gold-dark);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .lang-btn {
+            background: #0d141e;
+            color: var(--artifact-gold-light);
+            border: none;
+            padding: 7px 11px;
+            font-size: 0.78rem;
+            font-family: inherit;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: #182230;
+            color: #fff;
+        }
+
+        .lang-btn.active {
+            background: var(--artifact-gold-primary);
+            color: #000;
+            font-weight: bold;
         }
 
         .action-btn {
