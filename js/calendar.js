@@ -91,7 +91,18 @@
             const saved = localStorage.getItem(LANG_KEY);
             if (LANGS.indexOf(saved) !== -1) return saved;
         } catch (e) {}
-        return 'uk';
+
+        const systemLanguages =
+            navigator.languages && navigator.languages.length
+                ? navigator.languages
+                : [navigator.language || navigator.userLanguage || 'en'];
+
+        for (let i = 0; i < systemLanguages.length; i++) {
+            const language = String(systemLanguages[i]).toLowerCase().split('-')[0];
+            if (language === 'uk' || language === 'pl') return language;
+            if (language === 'en') return 'en';
+        }
+        return 'en';
     }
 
     function setLanguage(lang) {
@@ -126,8 +137,12 @@
 
         document.querySelectorAll('.lang-btn').forEach(function (btn) {
             const lang = btn.getAttribute('data-lang');
-            btn.classList.toggle('active', lang === currentLang);
-            btn.title = t('lang.' + lang);
+            const isActive = lang === currentLang;
+            const label = t('lang.' + lang);
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-pressed', String(isActive));
+            btn.setAttribute('aria-label', label);
+            btn.title = label;
         });
 
         months.forEach(function (m) {
