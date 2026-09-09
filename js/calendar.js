@@ -228,10 +228,17 @@
         document.documentElement.style.setProperty('--sticky-nav-top', navTop + 'px');
     }
 
+    function isRailLayout() {
+        return window.matchMedia('(min-width: 1100px)').matches;
+    }
+
     function stickyStackHeight() {
-        const toolbar = document.querySelector('.interactive-toolbar');
-        const nav = document.querySelector('.nav-container');
-        return (toolbar ? toolbar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0);
+        // Side rails sit beside the calendar, so only bars stuck to the top steal room.
+        return ['.interactive-toolbar', '.nav-container'].reduce(function (total, selector) {
+            const el = document.querySelector(selector);
+            if (!el || window.getComputedStyle(el).position !== 'sticky') return total;
+            return total + el.offsetHeight;
+        }, 0);
     }
 
     function scrollBelowStickyBars(el, behavior) {
@@ -265,7 +272,8 @@
             focusBtn.classList.add('active');
             allBtn.classList.remove('active');
             focusBar.style.display = 'flex';
-            if (navBar) navBar.style.display = 'none';
+            // The side rail stays: hiding it would leave an empty column.
+            if (navBar) navBar.style.display = isRailLayout() ? 'flex' : 'none';
             updateFocusMonthDisplay();
         }
     }
