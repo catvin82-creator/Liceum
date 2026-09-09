@@ -379,6 +379,9 @@
         .day-header {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 4px;
+            overflow: hidden;
             margin-bottom: 6px;
         }
 
@@ -568,6 +571,7 @@
             .full-day { display: none; }
             .short-day { display: inline; }
             .day-cell { height: 100px; padding: 4px; }
+            .today-chip { display: none; }
             .event-badge { font-size: 0.68rem; padding: 2px 4px; }
             .deco-frame { padding: 16px; }
         }
@@ -868,6 +872,34 @@
         .day-cell.dimmed {
             opacity: 0.25;
             transform: none !important;
+        }
+
+        .day-cell.is-today {
+            outline: 2px solid var(--jewel-cyan-border);
+            outline-offset: -2px;
+            box-shadow: inset 0 0 18px rgba(56, 189, 248, 0.35);
+            background-color: rgba(8, 145, 178, 0.18) !important;
+        }
+
+        .day-cell.is-today .day-number {
+            color: var(--jewel-cyan-border);
+            text-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+        }
+
+        .today-chip {
+            margin-left: auto;
+            padding: 1px 6px;
+            border: 1px solid var(--jewel-cyan-border);
+            border-radius: 999px;
+            background: var(--jewel-cyan-bg);
+            color: #e0f2fe;
+            font-size: 0.6rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
         }
 
         .day-cell.highlighted {

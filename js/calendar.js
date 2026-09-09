@@ -8,6 +8,17 @@
     const LANGS = ['uk', 'pl', 'en'];
     const LANG_KEY = school.langStorageKey || 'lyceum_78_lang';
 
+    const TODAY_KEY = (function () {
+        const now = new Date();
+        return (
+            now.getFullYear() +
+            '-' +
+            String(now.getMonth() + 1).padStart(2, '0') +
+            '-' +
+            String(now.getDate()).padStart(2, '0')
+        );
+    })();
+
     let currentLang = 'uk';
     let currentMonthFocusIdx = 0;
     let activeCategoryFilter = 'all';
@@ -45,6 +56,14 @@
             return loc(ev.badgeByDate[dateStr]);
         }
         return loc(ev.badgeShort) || loc(ev.title);
+    }
+
+    function monthIndexForDate(dateStr) {
+        const year = parseInt(dateStr.slice(0, 4), 10);
+        const month = parseInt(dateStr.slice(5, 7), 10);
+        return months.findIndex(function (m) {
+            return m.year === year && m.month === month;
+        });
     }
 
     function formatDayHeading(dateStr) {
@@ -167,7 +186,34 @@
         const focusTitle = document.getElementById('focusMonthTitle');
         if (focusTitle) focusTitle.textContent = loc(months[currentMonthFocusIdx].name);
 
+        renderTodayMarker();
         renderNotesBadges();
+    }
+
+    function renderTodayMarker() {
+        const cell = document.querySelector('.day-cell[data-day-key="' + TODAY_KEY + '"]');
+        if (!cell) return;
+        cell.classList.add('is-today');
+        const header = cell.querySelector('.day-header');
+        if (!header) return;
+        let chip = header.querySelector('.today-chip');
+        if (!chip) {
+            chip = document.createElement('span');
+            chip.className = 'today-chip';
+            header.appendChild(chip);
+        }
+        chip.textContent = t('today.label');
+    }
+
+    function scrollToToday() {
+        const section = document.getElementById(months[currentMonthFocusIdx].id);
+        if (!section) return;
+        markNavButton(document.querySelector('.nav-btn[data-month-id="' + section.id + '"]'));
+        const target = section.querySelector('.day-cell.is-today') || section;
+        const toolbar = document.querySelector('.interactive-toolbar');
+        const gap = (toolbar ? toolbar.offsetHeight : 0) + 30;
+        const top = window.scrollY + target.getBoundingClientRect().top - gap;
+        window.scrollTo({ top: Math.max(top, 0) });
     }
 
     function setViewMode(mode) {
@@ -536,7 +582,10 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         bindDayCells();
+        const todayIdx = monthIndexForDate(TODAY_KEY);
+        if (todayIdx !== -1) currentMonthFocusIdx = todayIdx;
         setLanguage(readStoredLang());
+        if (todayIdx !== -1) scrollToToday();
         setupGleanBridge();
     });
 
