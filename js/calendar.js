@@ -149,9 +149,7 @@
             const section = document.getElementById(m.id);
             if (!section) return;
             const title = section.querySelector('.month-title');
-            const sub = section.querySelector('.month-subtitle');
             if (title) title.textContent = loc(m.name);
-            if (sub) sub.textContent = currentLang === 'pl' ? m.name.uk : m.name.pl;
         });
 
         document.querySelectorAll('.agenda-item[data-event-id]').forEach(function (item) {
