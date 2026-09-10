@@ -158,27 +158,41 @@ PATCH = {
         "badgeShort": L("📋 Організаційна педрада", "📋 Rada organizacyjna", "📋 Organisational council"),
         "dateFormatted": loc_date("2026-09-08"),
     },
-    "ev-sep-trip": {
-        "title": L(
-            "Осінній виїзний (екскурсійний) тиждень ліцею 🚌",
-            "Jesienny tydzień wyjazdowy / wycieczkowy 🚌",
-            "Autumn trip / excursion week 🚌",
-        ),
-        "categoryName": L("Виїзди та екскурсії", "Wyjazdy i wycieczki", "Trips and excursions"),
-        "time": L("Весь тиждень", "Cały tydzień", "All week"),
+    "ev-sep-photo": {
+        "title": L("Фото з класом 📷", "Zdjęcie klasowe 📷", "Class photo 📷"),
+        "categoryName": L("Шкільна подія", "Wydarzenie szkolne", "School event"),
+        "time": L("Упродовж дня", "W ciągu dnia", "During the day"),
         "description": L(
-            "Традиційний виїзний тиждень ліцею: екскурсії, навчально-пізнавальні поїздки, краєзнавчі маршрути та командні активності.",
-            "Tradycyjny tydzień wyjazdowy liceum: wycieczki, wyjazdy edukacyjne, szlaki krajoznawcze i działania zespołowe.",
-            "The lyceum’s traditional trip week: excursions, educational outings, local-history routes and team activities.",
+            "Класне фото для шкільного альбому та документів ліцею.",
+            "Zdjęcie klasowe do albumu szkolnego i dokumentacji liceum.",
+            "Class photo for the school album and lyceum records.",
         ),
         "grade1Note": L(
-            "1-ші класи беруть участь у спеціально підготовлених адаптаційних та освітніх екскурсіях.",
-            "Klasy 1. biorą udział w specjalnie przygotowanych wycieczkach adaptacyjnych i edukacyjnych.",
-            "Year 1 takes part in specially prepared settling-in and educational trips.",
+            "Варто бути в охайному повсякденному або шкільному одязі — точне місце й час уточнить класний керівник.",
+            "Warto być w schludnym stroju codziennym lub szkolnym — dokładne miejsce i godzinę poda wychowawca.",
+            "Come in neat everyday or school clothes — the form tutor will confirm the exact place and time.",
         ),
-        "location": L("Виїзні маршрути", "Trasy wyjazdowe", "Off-site itineraries"),
-        "badgeShort": L("🚌 Екскурсійний тиждень", "🚌 Tydzień wycieczkowy", "🚌 Trip week"),
-        "dateFormatted": loc_range("2026-09-21", "2026-09-25"),
+        "location": L("Ліцей", "Liceum", "Lyceum"),
+        "badgeShort": L("📷 Фото з класом", "📷 Zdjęcie klasowe", "📷 Class photo"),
+        "dateFormatted": loc_date("2026-09-29"),
+    },
+    "ev-sep-legit": {
+        "title": L("Легітимація 🪪", "Legitymacja 🪪", "Student ID card 🪪"),
+        "categoryName": L("Шкільна подія", "Wydarzenie szkolne", "School event"),
+        "time": L("Упродовж дня", "W ciągu dnia", "During the day"),
+        "description": L(
+            "Видача учнівської легітимації (шкільного посвідчення).",
+            "Wydanie legitymacji szkolnej.",
+            "Issue of the student ID card (legitymacja).",
+        ),
+        "grade1Note": L(
+            "Легітимація потрібна для знижок у транспорті та входу до ліцею — уточніть у класного керівника, чи треба фото або документи.",
+            "Legitymacja jest potrzebna do zniżek w transporcie i wejścia do liceum — wychowawca powie, czy trzeba zdjęcie lub dokumenty.",
+            "The student ID is used for transport discounts and entering the lyceum — the form tutor will say if a photo or documents are needed.",
+        ),
+        "location": L("Ліцей", "Liceum", "Lyceum"),
+        "badgeShort": L("🪪 Легітимація", "🪪 Legitymacja", "🪪 Student ID"),
+        "dateFormatted": loc_date("2026-09-30"),
     },
     "ev-oct-integ": {
         "title": L(

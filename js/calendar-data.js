@@ -391,50 +391,95 @@ window.CALENDAR_DATA = {
       }
     },
     {
-      "id": "ev-sep-trip",
-      "date": "2026-09-21",
-      "endDate": "2026-09-25",
+      "id": "ev-sep-photo",
+      "date": "2026-09-29",
       "dateFormatted": {
-        "uk": "21.09 – 25.09.2026",
-        "pl": "21.09 – 25.09.2026",
-        "en": "21.09 – 25.09.2026"
+        "uk": "29.09.2026 (Вівторок)",
+        "pl": "29.09.2026 (Wtorek)",
+        "en": "29.09.2026 (Tuesday)"
       },
       "title": {
-        "uk": "Осінній виїзний (екскурсійний) тиждень ліцею 🚌",
-        "pl": "Jesienny tydzień wyjazdowy / wycieczkowy 🚌",
-        "en": "Autumn trip / excursion week 🚌"
+        "uk": "Фото з класом 📷",
+        "pl": "Zdjęcie klasowe 📷",
+        "en": "Class photo 📷"
       },
-      "category": "trip",
+      "category": "school",
       "categoryName": {
-        "uk": "Виїзди та екскурсії",
-        "pl": "Wyjazdy i wycieczki",
-        "en": "Trips and excursions"
+        "uk": "Шкільна подія",
+        "pl": "Wydarzenie szkolne",
+        "en": "School event"
       },
       "time": {
-        "uk": "Весь тиждень",
-        "pl": "Cały tydzień",
-        "en": "All week"
+        "uk": "Упродовж дня",
+        "pl": "W ciągu dnia",
+        "en": "During the day"
       },
       "description": {
-        "uk": "Традиційний виїзний тиждень ліцею: екскурсії, навчально-пізнавальні поїздки, краєзнавчі маршрути та командні активності.",
-        "pl": "Tradycyjny tydzień wyjazdowy liceum: wycieczki, wyjazdy edukacyjne, szlaki krajoznawcze i działania zespołowe.",
-        "en": "The lyceum’s traditional trip week: excursions, educational outings, local-history routes and team activities."
+        "uk": "Класне фото для шкільного альбому та документів ліцею.",
+        "pl": "Zdjęcie klasowe do albumu szkolnego i dokumentacji liceum.",
+        "en": "Class photo for the school album and lyceum records."
       },
       "grade1Note": {
-        "uk": "1-ші класи беруть участь у спеціально підготовлених адаптаційних та освітніх екскурсіях.",
-        "pl": "Klasy 1. biorą udział w specjalnie przygotowanych wycieczkach adaptacyjnych i edukacyjnych.",
-        "en": "Year 1 takes part in specially prepared settling-in and educational trips."
+        "uk": "Варто бути в охайному повсякденному або шкільному одязі — точне місце й час уточнить класний керівник.",
+        "pl": "Warto być w schludnym stroju codziennym lub szkolnym — dokładne miejsce i godzinę poda wychowawca.",
+        "en": "Come in neat everyday or school clothes — the form tutor will confirm the exact place and time."
       },
       "location": {
-        "uk": "Виїзні маршрути",
-        "pl": "Trasy wyjazdowe",
-        "en": "Off-site itineraries"
+        "uk": "Ліцей",
+        "pl": "Liceum",
+        "en": "Lyceum"
       },
-      "officialTitle": "Jesienny tydzień wyjazdowy / wycieczkowy",
+      "officialTitle": "Zdjęcie klasowe",
       "badgeShort": {
-        "uk": "🚌 Екскурсійний тиждень",
-        "pl": "🚌 Tydzień wycieczkowy",
-        "en": "🚌 Trip week"
+        "uk": "📷 Фото з класом",
+        "pl": "📷 Zdjęcie klasowe",
+        "en": "📷 Class photo"
+      }
+    },
+    {
+      "id": "ev-sep-legit",
+      "date": "2026-09-30",
+      "dateFormatted": {
+        "uk": "30.09.2026 (Середа)",
+        "pl": "30.09.2026 (Środa)",
+        "en": "30.09.2026 (Wednesday)"
+      },
+      "title": {
+        "uk": "Легітимація 🪪",
+        "pl": "Legitymacja 🪪",
+        "en": "Student ID card 🪪"
+      },
+      "category": "school",
+      "categoryName": {
+        "uk": "Шкільна подія",
+        "pl": "Wydarzenie szkolne",
+        "en": "School event"
+      },
+      "time": {
+        "uk": "Упродовж дня",
+        "pl": "W ciągu dnia",
+        "en": "During the day"
+      },
+      "description": {
+        "uk": "Видача учнівської легітимації (шкільного посвідчення).",
+        "pl": "Wydanie legitymacji szkolnej.",
+        "en": "Issue of the student ID card (legitymacja)."
+      },
+      "grade1Note": {
+        "uk": "Легітимація потрібна для знижок у транспорті та входу до ліцею — уточніть у класного керівника, чи треба фото або документи.",
+        "pl": "Legitymacja jest potrzebna do zniżek w transporcie i wejścia do liceum — wychowawca powie, czy trzeba zdjęcie lub dokumenty.",
+        "en": "The student ID is used for transport discounts and entering the lyceum — the form tutor will say if a photo or documents are needed."
+      },
+      "location": {
+        "uk": "Ліцей",
+        "pl": "Liceum",
+        "en": "Lyceum"
+      },
+      "officialTitle": "Legitymacja",
+      "badgeShort": {
+        "uk": "🪪 Легітимація",
+        "pl": "🪪 Legitymacja",
+        "en": "🪪 Student ID"
       }
     },
     {
